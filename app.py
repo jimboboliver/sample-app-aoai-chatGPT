@@ -243,6 +243,12 @@ def prepare_model_args(request_body, request_headers):
         application_name = app_settings.ui.title
         user_json = get_msdefender_user_json(authenticated_user_details, request_headers, conversation_id, application_name)
 
+    # HACK add fake assistant message
+    messages.append({
+        "content": "",
+        "role": "assistant"
+    })
+
     model_args = {
         "messages": messages,
         "temperature": app_settings.azure_openai.temperature,
